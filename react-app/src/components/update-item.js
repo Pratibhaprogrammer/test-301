@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Button,Form} from "react-bootstrap"; 
 class UpdateItemForm extends React.Component {
 
   constructor(props) {
@@ -14,7 +14,7 @@ class UpdateItemForm extends React.Component {
     const value = e.target.value;
     const item = this.state.item;
     item[field] = value;
-    this.setState(item);
+    this.setState({item});
   }
 
   handleSubmit = (e) => {
@@ -25,10 +25,10 @@ class UpdateItemForm extends React.Component {
   render() {
 
     return (
-      <form data-testid={`update-form-${this.props.item.name}`} onSubmit={this.handleChange}>
+      <Form data-testid={`update-form-${this.props.item.name}`} onSubmit={this.handleSubmit}>
         <input data-testid={`update-field-${this.props.item.name}`} name="notes" placeholder="Add Notes" onChange={this.handleChange} />
-        <button type="submit">Update Item</button>
-      </form>
+        <Button variant='info' type="submit">Update Item</Button>
+      </Form>
     );
   }
 }
