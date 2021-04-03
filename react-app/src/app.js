@@ -41,7 +41,7 @@ class App extends React.Component {
   updateItem = async (item) => {
     try{ 
       await axios.put(`${API_SERVER}/items/${item._id}`, item);
-      console.log('in update', this.state.items);
+      // console.log('in update', this.state.items);
       await this.getItems();
     } catch(err){
       console.log(err.message);
