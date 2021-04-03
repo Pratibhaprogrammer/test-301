@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Form, Button} from 'react-bootstrap';
-import Card from 'react-bootstrap/Card'
+
 export class AddNewItem extends React.Component {
 
   constructor(props) {
@@ -17,11 +17,13 @@ export class AddNewItem extends React.Component {
     const formData = this.state.formData;
     formData[field] = value;
     this.setState({formData});
+    console.log('formData', formData);
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.handleAddItem(this.state.formData)
+    console.log('in handleSubmit', this.state.formData);
   }
 
   render() {
@@ -30,17 +32,18 @@ export class AddNewItem extends React.Component {
       <Form data-testid="add-form" onSubmit={this.handleSubmit}>
         <Form.Group>
           <Form.Label>Item</Form.Label>
-          <Form.Control type="text" placeholder="Enter email" data-testid="add-form-name" name="name" onChange={this.handleChange} />
+          <Form.Control type="text" placeholder="Name" data-testid="add-form-name" name="name" onChange={this.handleChange} />
         </Form.Group>
         <Form.Group>
           <Form.Label>Description</Form.Label>
           <Form.Control type="text" placeholder="Description" data-testid="add-form-description" name="description" onChange={this.handleChange} />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="info" size="sm" type="submit">
           Add Item
         </Button>
       </Form>
     );
   }
 }
+
 export default AddNewItem;

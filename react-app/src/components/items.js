@@ -1,29 +1,34 @@
 import React from 'react';
 
-import UpdateForm from './update-item';
-
+import UpdateItemForm from './update-item';
+import {Button} from "react-bootstrap";
 class Items extends React.Component {
 
   render() {
 
     return (
       <section>
-        <h2>Items...</h2>
+        <h1>Items...</h1> 
+        <>
         {
-          this.props.itemsList.forEach( (item,idx) =>
+          this.props.itemsList.map( (item,idx) =>
             <div key={idx}>
-              <>{this.props.getItems(this.props.target.value)}</>
-              <h3>{this.props.item.name}</h3>
-              <p>{this.props.item.description}</p>
+              <h3>{item.name}</h3>
+              <p>{item.description}</p>
               <blockquote>{item.notes}</blockquote>
-              <UpdateForm item={item} handleUpdate={this.props.handleUpdate} />
-              <button
-                data-testid={`delete-button-${item.name}`}
-                onClick={ () => this.props.handleDelete(item._id) }
-              >Delete Item</button>
+              <UpdateItemForm item={item} handleUpdate={this.props.handleUpdate} />
+              <Button
+              variant="info"
+              style={{ marginTop: "2rem" }}
+              data-testid={`delete-button-${item.name}`}
+              onClick={() => this.props.handleDelete(item._id)}
+            >
+              Delete Item
+            </Button>
             </div>
           )
         }
+        </>
       </section>
     );
   }
