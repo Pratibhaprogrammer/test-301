@@ -18,27 +18,18 @@ class App extends React.Component {
     }
   }
 
-  async componentDidMount() {
-    this.getItems();
-  }
-
-  getItems = async () => {
-    try {
-      const response = await axios.get(`${API_SERVER}/items`);
-      const items = response.data;
-      console.log('response', response);
-      this.setState({ items });
-    } catch (err) {
-      console.log(err.message);
-    }
-  }
 
 
   addItem = async (item) => {
-    // console.log(item);
+    try{
+      // console.log(item);
     // this.state.items.push(item);
     await axios.post(`${API_SERVER}/items`, { name: item.name, description: item.description });
     this.getItems();
+    }catch(err){
+      console.log(err.message);
+    }
+    
   }
 
 
@@ -48,8 +39,29 @@ class App extends React.Component {
   }
 
   updateItem = async (item) => {
-    await axios.put(`${API_SERVER}/items/${item._id}`, item);
+    try{ 
+      await axios.put(`${API_SERVER}/items/${item._id}`, item);
+      // console.log('in update', this.state.items);
+      await this.getItems();
+    } catch(err){
+      console.log(err.message);
+    }
+  }
+
+  async componentDidMount() {
     this.getItems();
+  }
+
+  getItems = async () => {
+    console.log()
+    try {
+      const response = await axios.get(`${API_SERVER}/items`);
+      const items = response.data;
+      console.log('response', response);
+      this.setState({ items });
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 
   render() {
@@ -71,11 +83,5 @@ class App extends React.Component {
   }
 }
 
-
-{/* <Container>
-  <Row>
-    <Col>1 of 1</Col>
-  </Row>
-</Container> */}
 
 export default App;
